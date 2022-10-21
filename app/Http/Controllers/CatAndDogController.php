@@ -50,6 +50,30 @@ class CatAndDogController extends Controller
         ];
     }
 
+    public function getImageList(){
+        $page = $_GET['page'];
+        $limit = $_GET['limit'];
+
+        //get list for dog usig TheDogAPI.com
+        $dogCurlUrl = 'https://api.thedogapi.com/v1/images/search?page='.$page.'&limit='.$limit;
+        $dogList = $this->curl($dogCurlUrl);
+
+        //get list for dog usig thecatapi.com
+        $catCurlUrl = 'https://api.thecatapi.com/v1/images/search?page='.$page.'&limit='.$limit;
+        $catList = $this->curl($catCurlUrl);
+
+        //combine data of breeds
+        $combinedList = json_encode(array_merge(json_decode($dogList), json_decode($catList)));
+
+        //Return values
+        $data = json_decode($combinedList);
+        return [
+            'page' => $page,
+            'limit' => $limit,
+            'results' => $data
+        ];
+    }
+
     public function curl($curlURL){
         //All API calls to both cats and dogs are processed here...
         $curl = curl_init();
