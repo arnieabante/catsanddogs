@@ -27,7 +27,9 @@ class CatAndDogController extends Controller
         return [
             'page' => $page,
             'limit' => $limit,
-            'results' => $data
+            'results' => $data,
+            'success' => true,
+            'message' => 'List of breeds.'
         ];
     }
 
@@ -46,7 +48,9 @@ class CatAndDogController extends Controller
         return [
             'page' => $page,
             'limit' => $limit,
-            'results' => $data
+            'results' => $data,
+            'success' => true,
+            'message' => 'List of paginated image by breed.'
         ];
     }
 
@@ -70,7 +74,9 @@ class CatAndDogController extends Controller
         return [
             'page' => $page,
             'limit' => $limit,
-            'results' => $data
+            'results' => $data,
+            'success' => true,
+            'message' => 'List of paginated cats and dogs.'
         ];
     }
 
@@ -83,7 +89,9 @@ class CatAndDogController extends Controller
         $data = json_decode($image);
 
         return [
-            'results' => $data
+            'results' => $data,
+            'success' => true,
+            'message' => 'View image by ID  .'
         ];
     }
 
