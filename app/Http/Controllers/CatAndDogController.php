@@ -12,11 +12,11 @@ class CatAndDogController extends Controller
         $limit = $_GET['limit'];
         
         //get list for dog usig thedogapi.com
-        $dogCurlUrl = 'https://api.thedogapi.com/v1/breeds?page='.$page.'&limit='.$limit;
+        $dogCurlUrl = env('DOG_API_URL') . 'v1/breeds?page='.$page.'&limit='.$limit;
         $dogBreeds = $this->curl($dogCurlUrl);
 
         //get list for dog usig thecatapi.com
-        $catCurlUrl = 'https:///api.thecatapi.com/v1/breeds?page='.$page.'&limit='.$limit;
+        $catCurlUrl = env('CAT_API_URL') . 'v1/breeds?page='.$page.'&limit='.$limit;
         $catBreeds = $this->curl($catCurlUrl);
 
         //combine data of breeds
@@ -37,7 +37,7 @@ class CatAndDogController extends Controller
         $breedType = $type;
         
         //Indentify which API to be used
-        $curlUrl = $breedType=='dog'?'https://api.thedogapi.com/v1/images/search?page='.$page.'&limit='.$limit : 'https://api.thecatapi.com/v1/images/search?page='.$page.'&limit='.$limit;
+        $curlUrl = $breedType=='dog'?env('DOG_API_URL') . 'v1/images/search?page='.$page.'&limit='.$limit : env('CAT_API_URL') . 'v1/images/search?page='.$page.'&limit='.$limit;
         $images = $this->curl($curlUrl);
 
         //Return values
@@ -55,11 +55,11 @@ class CatAndDogController extends Controller
         $limit = $_GET['limit'];
 
         //get list for dog usig TheDogAPI.com
-        $dogCurlUrl = 'https://api.thedogapi.com/v1/images/search?page='.$page.'&limit='.$limit;
+        $dogCurlUrl = env('DOG_API_URL') . 'v1/images/search?page='.$page.'&limit='.$limit;
         $dogList = $this->curl($dogCurlUrl);
 
         //get list for dog usig thecatapi.com
-        $catCurlUrl = 'https://api.thecatapi.com/v1/images/search?page='.$page.'&limit='.$limit;
+        $catCurlUrl = env('CAT_API_URL') . 'v1/images/search?page='.$page.'&limit='.$limit;
         $catList = $this->curl($catCurlUrl);
 
         //combine data of breeds
@@ -76,7 +76,7 @@ class CatAndDogController extends Controller
 
     public function getBreedImagePerId($type, $id){
         //Indentify which API to be used
-        $curlUrl = $type=='dog'?'https://api.thedogapi.com/v1/images/'.$id : 'https://api.thedogapi.com/v1/images/'.$id;
+        $curlUrl = $type=='dog'?env('DOG_API_URL') . 'v1/images/'.$id : env('DOG_API_URL') . 'v1/images/'.$id;
         $image = $this->curl($curlUrl);
 
         //Return values
