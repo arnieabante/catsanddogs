@@ -74,6 +74,19 @@ class CatAndDogController extends Controller
         ];
     }
 
+    public function getBreedImagePerId($type, $id){
+        //Indentify which API to be used
+        $curlUrl = $type=='dog'?'https://api.thedogapi.com/v1/images/'.$id : 'https://api.thedogapi.com/v1/images/'.$id;
+        $image = $this->curl($curlUrl);
+
+        //Return values
+        $data = json_decode($image);
+
+        return [
+            'results' => $data
+        ];
+    }
+
     public function curl($curlURL){
         //All API calls to both cats and dogs are processed here...
         $curl = curl_init();
