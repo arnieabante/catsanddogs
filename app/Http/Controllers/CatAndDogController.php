@@ -31,6 +31,25 @@ class CatAndDogController extends Controller
         ];
     }
 
+    public function getBreedImagesPerType($type){
+        $page = $_GET['page'];
+        $limit = $_GET['limit'];
+        $breedType = $type;
+        
+        //Indentify which API to be used
+        $curlUrl = $breedType=='dog'?'https://api.thedogapi.com/v1/images/search?page='.$page.'&limit='.$limit : 'https://api.thecatapi.com/v1/images/search?page='.$page.'&limit='.$limit;
+        $images = $this->curl($curlUrl);
+
+        //Return values
+        $data = json_decode($images);
+
+        return [
+            'page' => $page,
+            'limit' => $limit,
+            'results' => $data
+        ];
+    }
+
     public function curl($curlURL){
         //All API calls to both cats and dogs are processed here...
         $curl = curl_init();
